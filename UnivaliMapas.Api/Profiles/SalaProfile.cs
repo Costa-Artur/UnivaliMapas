@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using UnivaliMapas.Api.Entities;
+using UnivaliMapas.Api.Features.Salas.Commands.CreateSala;
 using UnivaliMapas.Api.Features.Salas.Queries.GetSala;
 using UnivaliMapas.Api.Models;
 
@@ -14,6 +15,7 @@ public class SalaProfile : Profile
         
         //CQRS
         CreateMap<SalaForCreationDto, Sala>();
+        CreateMap<Sala, CreateSalaDto>();
 
         CreateMap<Sala, GetSalaDetailDto>();
     }
