@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using UnivaliMapas.Api.DbContexts;
 using UnivaliMapas.Api.Entities;
+using UnivaliMapas.Api.Models;
 
 namespace UnivaliMapas.Api.Repositories;
 
@@ -11,7 +12,8 @@ public class UnivaliRepository : IUnivaliRepository
     //Injeção de dependência
     private readonly UnivaliContext _context;
     private readonly IMapper _mapper;
-    
+    private IUnivaliRepository _univaliRepositoryImplementation;
+
     public UnivaliRepository(UnivaliContext context, IMapper mapper)
     {
         _context = context;
@@ -31,5 +33,14 @@ public class UnivaliRepository : IUnivaliRepository
     public async Task<bool> SaveChangesAsync()
     {
         return await _context.SaveChangesAsync() > 0;
+    }
+    
+    public void DeleteSala(Sala sala)
+    {
+        _context.Salas.Remove(sala);
+    }
+    
+   public void UpdateSala(Sala sala, SalaForUpdateDto salaForUpdateDto) {
+        _mapper.Map(salaForUpdateDto, sala);
     }
 }
