@@ -1,6 +1,9 @@
-﻿namespace UnivaliMapas.Api.Models;
+﻿using System.ComponentModel.DataAnnotations;
 
-public class SalaForManipulationDto
+namespace UnivaliMapas.Api.Models;
+
+public abstract class SalaForManipulationDto
 {
-    public int Number { get; set; }
+    [Required(ErrorMessage = "You should fill out a Number")]
+    public int Number { get; set; } 
 }
