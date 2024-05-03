@@ -3,6 +3,8 @@ using UnivaliMapas.Api.Entities;
 
 
 using UnivaliMapas.Api.Models;
+using UnivaliMapas.Features.Blocos.Commands.CreateBloco;
+using UnivaliMapas.Features.Blocos.Commands.UpdateBloco;
 using UnivaliMapas.Features.Blocos.Queries.GetBloco;
 
 
@@ -16,13 +18,14 @@ public class BlocoProfile : Profile
         CreateMap<BlocoDto, Bloco>();
         
         //CQRS
-        /*CreateMap<SalaForCreationDto, Sala>();
+        CreateMap<BlocoForCreationDto, Bloco>();
         CreateMap<Bloco, CreateBlocoDto>();
-
+        
         CreateMap<Bloco, GetBlocoDetailDto>();
+        CreateMap<Bloco, GetBlocoWithSalaDetailDto>();
 
-        CreateMap<SalaForCreationDto, Sala>();
-        CreateMap<UpdateSalaCommand, Sala>();
-        CreateMap<Sala, UpdateSalaCommandDto>();*/
+        CreateMap<BlocoForCreationDto, Bloco>();
+        CreateMap<UpdateBlocoCommand, Bloco>();
+        CreateMap<Bloco, UpdateBlocoDto>();
     }
 }

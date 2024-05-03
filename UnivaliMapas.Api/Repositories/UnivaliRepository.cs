@@ -55,4 +55,17 @@ public class UnivaliRepository : IUnivaliRepository
             .FirstOrDefaultAsync(b => b.BlocoID == blocoId);
     }
     
+    public void AddBloco(Bloco bloco) {
+        _context.Blocos.Add(bloco);
+    }
+
+    public void DeleteBloco(Bloco bloco)
+    {
+        _context.Blocos.Remove(bloco);
+    }
+
+    public void UpdateBloco(Bloco bloco, BlocoForUpdateDto blocoForUpdateDto)
+    {
+        _mapper.Map(blocoForUpdateDto, bloco);
+    }
 }

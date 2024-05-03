@@ -11,8 +11,8 @@ public class GetBlocoDetailQueryHandler : IRequestHandler<GetBlocoDetailQuery, G
 
     public GetBlocoDetailQueryHandler(IUnivaliRepository repository, IMapper mapper)
     {
-        _repository = repository ?? throw new ArgumentNullException(nameof(repository));
-        _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+        _mapper = mapper;
+        _repository = repository;
     }
 
     public async Task<GetBlocoDetailDto> Handle(GetBlocoDetailQuery request, CancellationToken cancellationToken)

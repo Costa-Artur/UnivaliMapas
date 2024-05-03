@@ -29,8 +29,4 @@
       </Content>
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Features\Blocos\Commands\" />
-    </ItemGroup>
-
 </Project>
