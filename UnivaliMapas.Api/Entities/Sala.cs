@@ -5,10 +5,8 @@ namespace UnivaliMapas.Api.Entities;
 
 public class Sala
 {
-    [Key]
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int SalaId { get; set; }
-
-    [Required]
     public int Number { get; set; }
+    public Bloco? Bloco { get; set; }
+    public int BlocoId { get; set; }
 }

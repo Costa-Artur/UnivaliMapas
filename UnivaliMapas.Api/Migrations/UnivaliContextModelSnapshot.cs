@@ -21,6 +21,39 @@ namespace UnivaliMapas.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("UnivaliMapas.Api.Entities.Bloco", b =>
+                {
+                    b.Property<int>("BlocoID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("BlocoID"));
+
+                    b.Property<char>("LetraBloco")
+                        .HasColumnType("character(1)");
+
+                    b.HasKey("BlocoID");
+
+                    b.ToTable("Blocos");
+
+                    b.HasData(
+                        new
+                        {
+                            BlocoID = 1,
+                            LetraBloco = 'A'
+                        },
+                        new
+                        {
+                            BlocoID = 2,
+                            LetraBloco = 'B'
+                        },
+                        new
+                        {
+                            BlocoID = 3,
+                            LetraBloco = 'C'
+                        });
+                });
+
             modelBuilder.Entity("UnivaliMapas.Api.Entities.Sala", b =>
                 {
                     b.Property<int>("SalaId")
@@ -29,10 +62,15 @@ namespace UnivaliMapas.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("SalaId"));
 
+                    b.Property<int>("BlocoId")
+                        .HasColumnType("integer");
+
                     b.Property<int>("Number")
                         .HasColumnType("integer");
 
                     b.HasKey("SalaId");
+
+                    b.HasIndex("BlocoId");
 
                     b.ToTable("Salas");
 
@@ -40,33 +78,55 @@ namespace UnivaliMapas.Migrations
                         new
                         {
                             SalaId = 1,
+                            BlocoId = 1,
                             Number = 101
                         },
                         new
                         {
                             SalaId = 2,
+                            BlocoId = 1,
                             Number = 102
                         },
                         new
                         {
                             SalaId = 3,
+                            BlocoId = 2,
                             Number = 103
                         },
                         new
                         {
                             SalaId = 4,
+                            BlocoId = 2,
                             Number = 104
                         },
                         new
                         {
                             SalaId = 5,
+                            BlocoId = 3,
                             Number = 105
                         },
                         new
                         {
                             SalaId = 6,
+                            BlocoId = 3,
                             Number = 106
                         });
+                });
+
+            modelBuilder.Entity("UnivaliMapas.Api.Entities.Sala", b =>
+                {
+                    b.HasOne("UnivaliMapas.Api.Entities.Bloco", "Bloco")
+                        .WithMany("Salas")
+                        .HasForeignKey("BlocoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Bloco");
+                });
+
+            modelBuilder.Entity("UnivaliMapas.Api.Entities.Bloco", b =>
+                {
+                    b.Navigation("Salas");
                 });
 #pragma warning restore 612, 618
         }
