@@ -26,6 +26,7 @@ public class SalasController : ControllerBase
 
         return salaToReturn != null ? Ok(salaToReturn) : NotFound();
     }
+    
 
     [HttpPost]
     public async Task<ActionResult<CreateSalaDto>> CreateSala(SalaForCreationDto salaForCreationDto)

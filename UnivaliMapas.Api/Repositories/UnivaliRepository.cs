@@ -43,4 +43,16 @@ public class UnivaliRepository : IUnivaliRepository
    public void UpdateSala(Sala sala, SalaForUpdateDto salaForUpdateDto) {
         _mapper.Map(salaForUpdateDto, sala);
     }
+   
+    public async Task<Bloco?> GetBlocoByIdAsync(int blocoId) {
+        return await _context.Blocos
+            .FirstOrDefaultAsync(b => b.BlocoID == blocoId);
+    }
+
+    public async Task<Bloco?> GetBlocoWithSalaByIdAsync(int blocoId) {
+        return await _context.Blocos
+            .Include(b => b.Salas)
+            .FirstOrDefaultAsync(b => b.BlocoID == blocoId);
+    }
+    
 }

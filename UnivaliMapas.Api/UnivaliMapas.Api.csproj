@@ -31,7 +31,6 @@
 
     <ItemGroup>
       <Folder Include="Features\Blocos\Commands\" />
-      <Folder Include="Features\Blocos\Queries\" />
     </ItemGroup>
 
 </Project>
