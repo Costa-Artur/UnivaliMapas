@@ -1,7 +1,10 @@
-﻿namespace UnivaliMapas.Api.Features.Salas.Commands.CreateSala;
+﻿using UnivaliMapas.Api.Models;
+
+namespace UnivaliMapas.Api.Features.Salas.Commands.CreateSala;
 
 public class CreateSalaDto
 {
     public int SalaId { get; set; }
     public int Number { get; set; }
+    public List<BlocoDto> Blocos { get; set; } = new();
 }

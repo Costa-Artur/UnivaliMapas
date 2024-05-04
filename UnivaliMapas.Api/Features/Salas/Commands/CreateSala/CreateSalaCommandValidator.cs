@@ -4,7 +4,7 @@ namespace UnivaliMapas.Api.Features.Salas.Commands.CreateSala;
 
 public class CreateSalaCommandValidator : AbstractValidator<CreateSalaCommand>
 {
-    public CreateSalaCommandValidator()
+   public CreateSalaCommandValidator()
     {
         RuleFor(s => s.Dto.Number)
             .NotEmpty()

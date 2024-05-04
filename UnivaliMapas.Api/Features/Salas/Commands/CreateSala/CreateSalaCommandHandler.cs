@@ -3,6 +3,7 @@ using FluentValidation;
 using MediatR;
 using UnivaliMapas.Api.Entities;
 using UnivaliMapas.Api.Repositories;
+using UnivaliMapas.Features.Blocos.Commands.CreateBloco;
 
 namespace UnivaliMapas.Api.Features.Salas.Commands.CreateSala;
 

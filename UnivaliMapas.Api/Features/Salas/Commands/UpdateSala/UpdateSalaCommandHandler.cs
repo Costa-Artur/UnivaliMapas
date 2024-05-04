@@ -15,7 +15,7 @@ public class UpdateSalaCommandHandler : IRequestHandler<UpdateSalaCommand, Updat
         _mapper = mapper;
     }
 
-    public async Task<UpdateSalaCommandDto> Handle(UpdateSalaCommand request, CancellationToken cancellationToken)
+    /*public async Task<UpdateSalaCommandDto> Handle(UpdateSalaCommand request, CancellationToken cancellationToken)
     {
         var salaFromDatabase = await _salaRepository.GetSalaByIdAsync(request.SalaId);
         if(salaFromDatabase == null)
@@ -27,5 +27,22 @@ public class UpdateSalaCommandHandler : IRequestHandler<UpdateSalaCommand, Updat
         await _salaRepository.SaveChangesAsync();
 
         return new UpdateSalaCommandDto {Success = true};
+    }*/
+
+    public async Task<UpdateSalaCommandDto> Handle(UpdateSalaCommand request, CancellationToken cancellationToken)
+    {
+        bool success = false;
+
+        var salaFromDatabase = await _salaRepository.GetSalaByIdAsync(request.BlocoId, request.SalaId);
+
+        if (salaFromDatabase != null)
+        {
+            _salaRepository.UpdateSala(salaFromDatabase, request.Dto);
+            await _salaRepository.SaveChangesAsync();
+
+            success = true;
+        }
+
+        return new UpdateSalaCommandDto { Success = success };
     }
 }

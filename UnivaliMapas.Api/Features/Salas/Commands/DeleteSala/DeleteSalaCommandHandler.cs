@@ -14,7 +14,7 @@ public class DeleteSalaCommandHandler : IRequestHandler<DeleteSalaCommand, Delet
 
     public async Task<DeleteSalaDto> Handle(DeleteSalaCommand request, CancellationToken cancellationToken)
     {
-        var salaFromDatabase = await _salaRepository.GetSalaByIdAsync(request.SalaId);
+        var salaFromDatabase = await _salaRepository.GetSalaByIdAsync(request.BlocoId, request.SalaId);
 
         if(salaFromDatabase == null) return new DeleteSalaDto {Success = false};
 

@@ -8,7 +8,7 @@ using UnivaliMapas.Features.Salas.Commands.UpdateSala;
 
 namespace UnivaliMapas.Api.Controllers;
 
-[Route("api/salas")]
+[Route("api/blocos/{blocoId}/salas")]
 public class SalasController : ControllerBase
 {
     private readonly IMediator _mediator;
@@ -19,9 +19,12 @@ public class SalasController : ControllerBase
     }
     
     [HttpGet("{salaId}", Name = "GetSalaById")]
-    public async Task<ActionResult> GetSalas(int salaId)
+    public async Task<ActionResult<GetSalaDetailDto>> GetSalas(int salaId, int blocoId)
     {
-        var getSalaDetailQuery = new GetSalaDetailQuery { Id = salaId };
+        var getSalaDetailQuery = new GetSalaDetailQuery { 
+            BlocoId = blocoId,
+            Id = salaId 
+        };
         var salaToReturn = await _mediator.Send(getSalaDetailQuery);
 
         return salaToReturn != null ? Ok(salaToReturn) : NotFound();
@@ -29,7 +32,7 @@ public class SalasController : ControllerBase
     
 
     [HttpPost]
-    public async Task<ActionResult<CreateSalaDto>> CreateSala(SalaForCreationDto salaForCreationDto)
+    public async Task<ActionResult<CreateSalaDto>> CreateSala(SalaWithBlocoForCreationDto salaForCreationDto)
     {
         var createSalaCommand = new CreateSalaCommand { Dto = salaForCreationDto };
         var salaResponse = await _mediator.Send(createSalaCommand);

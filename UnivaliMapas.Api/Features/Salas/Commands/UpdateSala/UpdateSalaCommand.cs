@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using UnivaliMapas.Api.Models;
 
 
@@ -8,5 +9,6 @@ public class UpdateSalaCommand : IRequest<UpdateSalaCommandDto>
 {
     public int SalaId { get; set; }
     public int Number { get; set; }
-    //public SalaForUpdateDto Dto { get; set; } = new();
+    public int BlocoId { get; set; }
+    public SalaForUpdateDto Dto { get; set; } = new();
 }

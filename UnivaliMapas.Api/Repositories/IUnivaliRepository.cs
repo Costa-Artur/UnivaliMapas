@@ -5,7 +5,7 @@ namespace UnivaliMapas.Api.Repositories;
 
 public interface IUnivaliRepository
 {
-    Task<Sala?> GetSalaByIdAsync(int salaId);
+    Task<Sala?> GetSalaByIdAsync(int blocoID, int salaId);
     
     void DeleteSala(Sala sala);
     void AddSala(Sala sala);

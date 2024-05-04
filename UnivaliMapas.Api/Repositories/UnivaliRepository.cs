@@ -20,9 +20,13 @@ public class UnivaliRepository : IUnivaliRepository
         _mapper = mapper;
     }
     
-    public async Task<Sala?> GetSalaByIdAsync(int salaId)
+    public async Task<Sala?> GetSalaByIdAsync(int blocoId, int salaId)
     {
-        return await _context.Salas.FirstOrDefaultAsync(s => s.SalaId == salaId);
+        var blocoFromDatabase = await GetBlocoWithSalaByIdAsync(blocoId);
+        var salaFromDatabase = blocoFromDatabase?.Salas
+            .FirstOrDefault(s => s.SalaId == salaId);
+
+        return salaFromDatabase;
     }
 
     public async void AddSala(Sala sala)

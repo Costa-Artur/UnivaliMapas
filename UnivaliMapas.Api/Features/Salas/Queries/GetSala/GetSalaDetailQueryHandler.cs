@@ -17,7 +17,7 @@ public class GetSalaDetailQueryHandler : IRequestHandler<GetSalaDetailQuery, Get
     
     public async Task<GetSalaDetailDto> Handle(GetSalaDetailQuery request, CancellationToken cancellationToken)
     {
-        var salaFromDatabase = await _repository.GetSalaByIdAsync(request.Id);
+        var salaFromDatabase = await _repository.GetSalaByIdAsync(request.BlocoId, request.Id);
         return _mapper.Map<GetSalaDetailDto>(salaFromDatabase);
     }
 }
