@@ -14,12 +14,17 @@ public class DeleteSalaCommandHandler : IRequestHandler<DeleteSalaCommand, Delet
 
     public async Task<DeleteSalaDto> Handle(DeleteSalaCommand request, CancellationToken cancellationToken)
     {
+        bool success = false;
+
         var salaFromDatabase = await _salaRepository.GetSalaByIdAsync(request.BlocoId, request.SalaId);
 
-        if(salaFromDatabase == null) return new DeleteSalaDto {Success = false};
+        if(salaFromDatabase != null) {
+            _salaRepository.DeleteSala(salaFromDatabase);
+            await _salaRepository.SaveChangesAsync();
 
-        _salaRepository.DeleteSala(salaFromDatabase);
-        await _salaRepository.SaveChangesAsync();
-        return new DeleteSalaDto {Success = true};
+            success = true;
+        }
+
+        return new DeleteSalaDto { Success = success };
     }   
 }

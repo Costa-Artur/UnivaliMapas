@@ -76,8 +76,12 @@ public class SalasController : ControllerBase
     }
     
     [HttpDelete("{salaId}")]
-    public async Task<ActionResult> DeleteSala(int salaId) {
-        var deleteSalaCommand = new DeleteSalaCommand { SalaId = salaId };
+    public async Task<ActionResult> DeleteSala(int salaId, int blocoId) {
+        var deleteSalaCommand = new DeleteSalaCommand
+        {
+            SalaId = salaId, 
+            BlocoId = blocoId
+        };
         var result = await _mediator.Send(deleteSalaCommand);
 
         return result.Success ? NoContent() : NotFound();
