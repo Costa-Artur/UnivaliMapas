@@ -23,7 +23,8 @@ public class UnivaliRepository : IUnivaliRepository
     public async Task<Sala?> GetSalaByIdAsync(int blocoId, int salaId)
     {
         var blocoFromDatabase = await GetBlocoWithSalaByIdAsync(blocoId);
-        var salaFromDatabase = blocoFromDatabase?.Salas
+        var salaFromDatabase = blocoFromDatabase
+            ?.Salas
             .FirstOrDefault(s => s.SalaId == salaId);
 
         return salaFromDatabase;
@@ -44,7 +45,7 @@ public class UnivaliRepository : IUnivaliRepository
         _context.Salas.Remove(sala);
     }
     
-   public void UpdateSala(Sala sala, SalaForUpdateDto salaForUpdateDto) {
+    public void UpdateSala(Sala sala, SalaForUpdateDto salaForUpdateDto) {
         _mapper.Map(salaForUpdateDto, sala);
     }
    

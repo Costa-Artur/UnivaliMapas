@@ -62,17 +62,17 @@ public class SalasController : ControllerBase
     }
     
     
-    [HttpPut("{salaId}")]
-    public async Task<ActionResult> UpdateSalas(int salaId,
-        int number
-    )
+    [HttpPut("{SalaId}")]
+    public async Task<ActionResult> UpdateSalas(int blocoId, SalaForUpdateDto salaForUpdateDto)
     {
-        var salaForUpdateDto = new UpdateSalaCommand { SalaId = salaId, Number = number};
-        var result = await  _mediator.Send(salaForUpdateDto);
+        var updateSalaCommand = new UpdateSalaCommand
+        {
+            BlocoId = blocoId, 
+            Dto = salaForUpdateDto
+        };
+        var result = await  _mediator.Send(updateSalaCommand);
 
-        if(result.Success == false) return NotFound();
-
-        return NoContent();
+        return result.Success ? NoContent() : NotFound();
     }
     
     [HttpDelete("{salaId}")]

@@ -11,8 +11,8 @@ public class UpdateSalaCommandHandler : IRequestHandler<UpdateSalaCommand, Updat
 
     public UpdateSalaCommandHandler(IUnivaliRepository salaRepository, IMapper mapper)
     {
-        _salaRepository = salaRepository;
-        _mapper = mapper;
+        _salaRepository = salaRepository ?? throw new ArgumentNullException(nameof(salaRepository));
+        _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
     }
 
     /*public async Task<UpdateSalaCommandDto> Handle(UpdateSalaCommand request, CancellationToken cancellationToken)
@@ -33,7 +33,7 @@ public class UpdateSalaCommandHandler : IRequestHandler<UpdateSalaCommand, Updat
     {
         bool success = false;
 
-        var salaFromDatabase = await _salaRepository.GetSalaByIdAsync(request.BlocoId, request.SalaId);
+        var salaFromDatabase = await _salaRepository.GetSalaByIdAsync(request.BlocoId, request.Dto.SalaId);
 
         if (salaFromDatabase != null)
         {

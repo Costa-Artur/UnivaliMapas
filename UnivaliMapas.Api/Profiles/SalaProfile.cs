@@ -23,5 +23,8 @@ public class SalaProfile : Profile
         CreateMap<SalaForCreationDto, Sala>();
         CreateMap<UpdateSalaCommand, Sala>();
         CreateMap<Sala, UpdateSalaCommandDto>();
+        CreateMap<UpdateSalaCommandDto, Sala>();
+        CreateMap<SalaForUpdateDto, Sala>();
+        CreateMap<Sala, SalaForUpdateDto>();
     }
 }
