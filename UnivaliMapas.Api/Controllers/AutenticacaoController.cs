@@ -4,6 +4,10 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Identity;
+using UnivaliMapas.Api.Extensions;
+using UnivaliMapas.Api.Entities;
+using UnivaliMapas.Api.Repositories;
 
 namespace UnivaliMapas.Api.Controllers;
 
@@ -12,16 +16,21 @@ namespace UnivaliMapas.Api.Controllers;
 public class AutenticacaoController : ControllerBase
 {
     private readonly IConfiguration _configuration;
+    private readonly IUnivaliRepository _repository;
+    private readonly string _pepper = "pepper";
+    private readonly string _salt = "salt";
+    private readonly int _iteration = 10;
 
-    public AutenticacaoController(IConfiguration configuration)
+    public AutenticacaoController(IConfiguration configuration, IUnivaliRepository repository)
     {
         _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+        _repository = repository;
     }
 
     [HttpPost("autenticar")]
-    public ActionResult<string> AutenticarComCodigoPessoa(AutenticacaoCodigoPessoaRequestDto autenticacaoRequestDto)
+    public async Task<ActionResult<string>> AutenticarComCodigoPessoa(AutenticacaoCodigoPessoaRequestDto autenticacaoRequestDto)
     {
-        var user = ValidateUserCredentialsFromCodigoPessoa(
+        var user = await ValidateUserCredentialsFromCodigoPessoa(
             autenticacaoRequestDto.CodigoPessoa!,
             autenticacaoRequestDto.Password!
         );
@@ -58,9 +67,11 @@ public class AutenticacaoController : ControllerBase
         return Ok(jwtToReturn);
     }
 
-    private InfoUser? ValidateUserCredentialsFromCodigoPessoa(string codigoPessoa, string password)
+    private async Task<InfoUser?> ValidateUserCredentialsFromCodigoPessoa(string codigoPessoa, string password)
     {
-        var userFromDatabase = new Entities.Usuario();
+        var userFromDatabase = await _repository.GetUserByCodigoPessoaAssync(codigoPessoa);
+
+        if(userFromDatabase == null) return null;
 
         if (userFromDatabase.CodigoPessoa == codigoPessoa && userFromDatabase.Password == password)
         {

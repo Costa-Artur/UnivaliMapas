@@ -12,7 +12,6 @@ public class UnivaliRepository : IUnivaliRepository
     //Injeção de dependência
     private readonly UnivaliContext _context;
     private readonly IMapper _mapper;
-    private IUnivaliRepository _univaliRepositoryImplementation;
 
     public UnivaliRepository(UnivaliContext context, IMapper mapper)
     {
@@ -30,7 +29,7 @@ public class UnivaliRepository : IUnivaliRepository
         return salaFromDatabase;
     }
 
-    public async void AddSala(Sala sala)
+    public void AddSala(Sala sala)
     {
         _context.Salas.Add(sala);
     }
@@ -87,5 +86,10 @@ public class UnivaliRepository : IUnivaliRepository
     public async Task<ICollection<Usuario>?> GetUsersAsync()
     {
         return await _context.Usuarios.ToListAsync();
+    }
+
+    public async Task<Usuario?> GetUserByCodigoPessoaAssync(string codigoPessoa)
+    {
+        return await _context.Usuarios.FirstOrDefaultAsync(u => u.CodigoPessoa == codigoPessoa);
     }
 }

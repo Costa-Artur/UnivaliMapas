@@ -71,8 +71,8 @@ public class UnivaliContext : DbContext
                     UserId = 1,
                     Name = "Vinicius Setti",
                     Cpf = "000.000.000-00",
-                    CodigoPessoa = "7888888",
-                    Password = PasswordHasherExtension.ComputeHash("senha123", "salt", "pepper", 10),
+                    CodigoPessoa = "78888818",
+                    Password = "senha123",
                 },
                 new Usuario
                 {
@@ -80,7 +80,7 @@ public class UnivaliContext : DbContext
                     Name = "Alisson Pokrywiecki",
                     Cpf = "000.000.000-00",
                     CodigoPessoa = "7888888",
-                    Password = PasswordHasherExtension.ComputeHash("senha123", "salt", "pepper", 10),
+                    Password = "senha123",
                 });
             
             

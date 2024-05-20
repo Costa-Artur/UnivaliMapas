@@ -19,5 +19,6 @@ public interface IUnivaliRepository
 
     void AddUser(Usuario user);
     Task<Usuario?> GetUserByIdAsync(int userId);
+    Task<Usuario?> GetUserByCodigoPessoaAssync(string codigoPessoa);
     Task<ICollection<Usuario>?> GetUsersAsync();
 }
