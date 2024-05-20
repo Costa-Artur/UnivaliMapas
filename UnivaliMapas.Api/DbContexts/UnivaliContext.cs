@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using UnivaliMapas.Api.Entities;
+using UnivaliMapas.Api.Extensions;
 
 namespace UnivaliMapas.Api.DbContexts;
 
@@ -10,6 +11,8 @@ public class UnivaliContext : DbContext
 {
     public DbSet<Sala> Salas { get; set; } = null!;
     public DbSet<Bloco> Blocos { get; set; } = null!;
+
+    public DbSet<Usuario> Usuarios { get; set; } = null!;
     
     public UnivaliContext (DbContextOptions<UnivaliContext> options) : base(options)
     { }
@@ -55,11 +58,32 @@ public class UnivaliContext : DbContext
                 new Sala { SalaId = 5, Number = 105, BlocoId = 3 },
                 new Sala { SalaId = 6, Number = 106, BlocoId = 3 }
             );
+
+        var usuario = modelBuilder.Entity<Usuario>();
+
+        usuario
+            .HasKey(u => u.UserId);
+
+        usuario
+            .HasData(
+                new Usuario
+                {
+                    UserId = 1,
+                    Name = "Vinicius Setti",
+                    Cpf = "000.000.000-00",
+                    CodigoPessoa = "7888888",
+                    Password = PasswordHasherExtension.ComputeHash("senha123", "salt", "pepper", 10),
+                },
+                new Usuario
+                {
+                    UserId = 2,
+                    Name = "Alisson Pokrywiecki",
+                    Cpf = "000.000.000-00",
+                    CodigoPessoa = "7888888",
+                    Password = PasswordHasherExtension.ComputeHash("senha123", "salt", "pepper", 10),
+                });
             
             
-            
-            base.OnModelCreating(modelBuilder);
-            
+        base.OnModelCreating(modelBuilder);
     }
-    
 }

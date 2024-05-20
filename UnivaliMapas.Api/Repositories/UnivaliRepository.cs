@@ -73,4 +73,19 @@ public class UnivaliRepository : IUnivaliRepository
     {
         _mapper.Map(blocoForUpdateDto, bloco);
     }
+
+    public void AddUser(Usuario user)
+    {
+        _context.Usuarios.Add(user);
+    }
+
+    public async Task<Usuario?> GetUserByIdAsync(int userId)
+    {
+        return await _context.Usuarios.FirstOrDefaultAsync(u => u.UserId == userId);
+    }
+
+    public async Task<ICollection<Usuario>?> GetUsersAsync()
+    {
+        return await _context.Usuarios.ToListAsync();
+    }
 }

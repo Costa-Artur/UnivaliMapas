@@ -6,6 +6,7 @@ using UnivaliMapas.Api.DbContexts;
 using UnivaliMapas.Api.Extensions;
 using UnivaliMapas.Api.Features.Salas.Commands.CreateSala;
 using UnivaliMapas.Api.Repositories;
+using UnivaliMapas.Features.Usuarios.Commands.CreateUser;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,7 @@ builder.Services.AddScoped<IUnivaliRepository, UnivaliRepository>();
 
 // Injeção de validadores
 builder.Services.AddScoped<IValidator<CreateSalaCommand>, CreateSalaCommandValidator>();
+builder.Services.AddScoped<IValidator<CreateUserCommand>, CreateUserCommandValidator>();
 
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Program>());

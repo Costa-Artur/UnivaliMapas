@@ -16,9 +16,10 @@ public class BlocoProfile : Profile
     {
         CreateMap<Bloco, BlocoDto>();
         CreateMap<BlocoDto, Bloco>();
-        
+        CreateMap<GetBlocoWithSalaDetailDto,Bloco>();
+        CreateMap<Bloco, GetBlocoWithSalaDetailDto>();
+
         //CQRS
-        CreateMap<BlocoForCreationDto, Bloco>();
         CreateMap<Bloco, CreateBlocoDto>();
         
         CreateMap<Bloco, GetBlocoDetailDto>();

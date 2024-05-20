@@ -16,4 +16,8 @@ public interface IUnivaliRepository
     void AddBloco (Bloco bloco);
     void DeleteBloco(Bloco bloco);
     void UpdateBloco(Bloco bloco, BlocoForUpdateDto blocoForUpdate);
+
+    void AddUser(Usuario user);
+    Task<Usuario?> GetUserByIdAsync(int userId);
+    Task<ICollection<Usuario>?> GetUsersAsync();
 }
