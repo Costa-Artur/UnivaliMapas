@@ -16,11 +16,11 @@ public class SalaProfile : Profile
         
         //CQRS
         CreateMap<SalaForCreationDto, Sala>();
+        CreateMap<SalaWithBlocoForCreationDto, Sala>();
         CreateMap<Sala, CreateSalaDto>();
 
         CreateMap<Sala, GetSalaDetailDto>();
-
-        CreateMap<SalaForCreationDto, Sala>();
+        
         CreateMap<UpdateSalaCommand, Sala>();
         CreateMap<Sala, UpdateSalaCommandDto>();
         CreateMap<UpdateSalaCommandDto, Sala>();

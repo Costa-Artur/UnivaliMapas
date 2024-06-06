@@ -30,9 +30,9 @@ public class UnivaliRepository : IUnivaliRepository
         return salaFromDatabase;
     }
 
-    public async void AddSala(Sala sala)
+    public async void AddSala(Bloco bloco, Sala sala)
     {
-        _context.Salas.Add(sala);
+        bloco.Salas.Add(sala);
     }
 
     public async Task<bool> SaveChangesAsync()
@@ -72,5 +72,13 @@ public class UnivaliRepository : IUnivaliRepository
     public void UpdateBloco(Bloco bloco, BlocoForUpdateDto blocoForUpdateDto)
     {
         _mapper.Map(blocoForUpdateDto, bloco);
+    }
+    
+    public async Task<List <Bloco>> GetBlocosAsync(List<int> blocos) {
+        var blocosFromDatabase = await _context.Blocos
+            .Where(b => blocos.Contains(b.BlocoID))
+            .ToListAsync();
+
+        return blocosFromDatabase;
     }
 }

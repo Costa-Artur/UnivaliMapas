@@ -6,5 +6,4 @@ public class CreateSalaDto
 {
     public int SalaId { get; set; }
     public int Number { get; set; }
-    public List<BlocoDto> Blocos { get; set; } = new();
 }

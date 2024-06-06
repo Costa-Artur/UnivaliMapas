@@ -4,7 +4,8 @@ using UnivaliMapas.Api.Models;
 
 namespace UnivaliMapas.Api.Features.Salas.Commands.CreateSala;
 
-public class CreateSalaCommand : IRequest<CreateSalaCommandResponse>
+public class CreateSalaCommand : IRequest<CreateSalaDto>
 {
-    public SalaWithBlocoForCreationDto Dto { get; set; } = new();
+    public int BlocoId { get; set; }
+    public SalaForCreationDto Dto { get; set; } = new();
 }

@@ -31,36 +31,58 @@ public class SalasController : ControllerBase
     }
     
 
-    [HttpPost]
-    public async Task<ActionResult<CreateSalaDto>> CreateSala(SalaWithBlocoForCreationDto salaForCreationDto)
-    {
-        var createSalaCommand = new CreateSalaCommand { Dto = salaForCreationDto };
-        var salaResponse = await _mediator.Send(createSalaCommand);
-        
-        if(!salaResponse.IsSuccess)
-        {
-            foreach (var error in salaResponse.Errors)
-            {
-                string key = error.Key;
-                string[] values = error.Value;
-
-                foreach (var value in values)
-                {
-                    ModelState.AddModelError(key, value);
-                }
-            }
-
-            return ValidationProblem(ModelState);
-        }
-        
-
-        return CreatedAtRoute(
-            "GetSalaById",
-            new { salaId = salaResponse.Sala.SalaId },
-            salaResponse.Sala
-        );
-    }
+    // [HttpPost]
+    // public async Task<ActionResult<CreateSalaDto>> CreateSala(SalaWithBlocoForCreationDto salaForCreationDto, int blocoId)
+    // {
+    //     var createSalaCommand = new CreateSalaCommand
+    //     {
+    //         Dto = salaForCreationDto,
+    //         BlocoId = blocoId
+    //     };
+    //     var salaResponse = await _mediator.Send(createSalaCommand);
+    //     
+    //     // if(!salaResponse.IsSuccess)
+    //     // {
+    //     //     foreach (var error in salaResponse.Errors)
+    //     //     {
+    //     //         string key = error.Key;
+    //     //         string[] values = error.Value;
+    //     //
+    //     //         foreach (var value in values)
+    //     //         {
+    //     //             ModelState.AddModelError(key, value);
+    //     //         }
+    //     //     }
+    //     //
+    //     //     return ValidationProblem(ModelState);
+    //     // }
+    //     
+    //
+    //     return CreatedAtRoute(
+    //         "GetSalaById",
+    //         new { salaId = salaResponse.SalaId, blocoId },
+    //         salaResponse
+    //     );
+    // }
     
+    [HttpPost]
+    public async Task<ActionResult <CreateSalaDto>> CreateSala(int blocoId, SalaForCreationDto salaForCreationDto) {
+        var createSalaCommand = new CreateSalaCommand { 
+            BlocoId = blocoId, Dto = salaForCreationDto
+        };
+        var salaToReturn = await _mediator.Send(createSalaCommand);
+
+        return salaToReturn != null ? 
+            CreatedAtRoute(
+                "GetSalaById",
+                new { 
+                    blocoId,
+                    salaId = salaToReturn.SalaId 
+                },
+                salaToReturn
+            ) :
+            NotFound();
+    }
     
     [HttpPut("{SalaId}")]
     public async Task<ActionResult> UpdateSalas(int blocoId, SalaForUpdateDto salaForUpdateDto)

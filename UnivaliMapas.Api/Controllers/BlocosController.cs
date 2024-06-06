@@ -20,13 +20,6 @@ public class BlocosController : ControllerBase
     }
     
     
-    /*public async Task<ActionResult <GetBlocoDetailDto>> GetBlocoById(int blocoID) {
-        var getBlocoQuery = new GetBlocoDetailQuery { BlocoID = blocoID };
-        var blocoToReturn = _mediator.Send(getBlocoQuery).Result;
-
-        return blocoToReturn != null ? Ok(blocoToReturn) : NotFound();
-    }*/
-    
     [HttpGet("{blocoID}", Name = "GetBlocoById")]
     public async Task<ActionResult> GetBloco(int blocoID)
     {

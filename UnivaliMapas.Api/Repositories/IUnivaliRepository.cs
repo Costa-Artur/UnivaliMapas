@@ -8,7 +8,7 @@ public interface IUnivaliRepository
     Task<Sala?> GetSalaByIdAsync(int blocoID, int salaId);
     
     void DeleteSala(Sala sala);
-    void AddSala(Sala sala);
+    void AddSala(Bloco bloco, Sala sala);
     Task<bool> SaveChangesAsync();
     void UpdateSala(Sala sala, SalaForUpdateDto salaForUpdateDto);
     Task<Bloco?> GetBlocoByIdAsync(int blocoId);
@@ -16,4 +16,5 @@ public interface IUnivaliRepository
     void AddBloco (Bloco bloco);
     void DeleteBloco(Bloco bloco);
     void UpdateBloco(Bloco bloco, BlocoForUpdateDto blocoForUpdate);
+    Task<List <Bloco>> GetBlocosAsync(List<int> blocos);
 }
