@@ -9,4 +9,5 @@ public class Sala
     public int Number { get; set; }
     public Bloco? Bloco { get; set; }
     public int BlocoId { get; set; }
+    public ICollection<Aula> Aulas { get; set; } = new List<Aula>();
 }
