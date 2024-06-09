@@ -5,6 +5,7 @@ namespace UnivaliMapas.Features.Aulas.Queries.GetAulaByProfessor;
 
 public class GetAulaByProfessorDto
 {
+    public int AulaId { get; set; }
     public DateTime  Data { get; set; }
     public MateriaDto? Materia { get; set; }
     public SalaDto? Sala { get; set; }
