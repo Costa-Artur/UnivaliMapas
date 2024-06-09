@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace UnivaliMapas.Migrations
 {
     /// <inheritdoc />
-    public partial class aulamigration : Migration
+    public partial class migrationcaraio : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -187,7 +187,12 @@ namespace UnivaliMapas.Migrations
             migrationBuilder.InsertData(
                 table: "Aulas",
                 columns: new[] { "AulaId", "Data", "MateriaId", "SalaId" },
-                values: new object[] { 1, new DateTime(2024, 6, 8, 18, 32, 21, 45, DateTimeKind.Utc).AddTicks(1898), 1, 1 });
+                values: new object[,]
+                {
+                    { 1, new DateTime(2024, 6, 9, 19, 30, 43, 602, DateTimeKind.Utc).AddTicks(767), 1, 1 },
+                    { 2, new DateTime(2024, 6, 10, 19, 30, 43, 602, DateTimeKind.Utc).AddTicks(769), 2, 5 },
+                    { 3, new DateTime(2024, 6, 11, 19, 30, 43, 602, DateTimeKind.Utc).AddTicks(776), 1, 3 }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AlunoMateria_MateriaId",

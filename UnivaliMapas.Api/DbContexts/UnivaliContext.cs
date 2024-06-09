@@ -147,6 +147,20 @@ namespace UnivaliMapas.Api.DbContexts
                     Data = DateTime.UtcNow,  // Ensure this is in UTC
                     MateriaId = 1,
                     SalaId = 1
+                },
+                new Aula
+                {
+                    AulaId = 2,
+                    Data = DateTime.UtcNow.AddDays(1),  // Ensure this is in UTC
+                    MateriaId = 2,
+                    SalaId = 5
+                },
+                new Aula
+                {
+                    AulaId = 3,
+                    Data = DateTime.UtcNow.AddDays(2),  // Ensure this is in UTC
+                    MateriaId = 1,
+                    SalaId = 3
                 });
 
 

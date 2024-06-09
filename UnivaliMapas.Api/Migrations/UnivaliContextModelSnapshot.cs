@@ -78,9 +78,23 @@ namespace UnivaliMapas.Migrations
                         new
                         {
                             AulaId = 1,
-                            Data = new DateTime(2024, 6, 8, 18, 32, 21, 45, DateTimeKind.Utc).AddTicks(1898),
+                            Data = new DateTime(2024, 6, 9, 19, 30, 43, 602, DateTimeKind.Utc).AddTicks(767),
                             MateriaId = 1,
                             SalaId = 1
+                        },
+                        new
+                        {
+                            AulaId = 2,
+                            Data = new DateTime(2024, 6, 10, 19, 30, 43, 602, DateTimeKind.Utc).AddTicks(769),
+                            MateriaId = 2,
+                            SalaId = 5
+                        },
+                        new
+                        {
+                            AulaId = 3,
+                            Data = new DateTime(2024, 6, 11, 19, 30, 43, 602, DateTimeKind.Utc).AddTicks(776),
+                            MateriaId = 1,
+                            SalaId = 3
                         });
                 });
 
