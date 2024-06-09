@@ -3,6 +3,7 @@ using UnivaliMapas.Api.Entities;
 
 
 using UnivaliMapas.Api.Models;
+using UnivaliMapas.Features.Aulas.Commands.UpdateAula;
 using UnivaliMapas.Features.Aulas.Queries.GetAulaByProfessor;
 using UnivaliMapas.Features.Aulas.Queries.GetAulaByStudent;
 using UnivaliMapas.Features.Blocos.Commands.CreateBloco;
@@ -35,6 +36,11 @@ public class BlocoProfile : Profile
 
         CreateMap<Aula, GetAulaByStudentDto>();
         CreateMap<Aula, GetAulaByProfessorDto>();
+        CreateMap<UpdateAulaCommand, Aula>();
+        CreateMap<Aula, UpdateAulaDto>();
+        CreateMap<UpdateAulaDto, Aula>();
+        CreateMap<AulaForUpdateDto, Aula>();
+        CreateMap<Aula, AulaForUpdateDto>();
         
         CreateMap<Materia, MateriaDto>();
 

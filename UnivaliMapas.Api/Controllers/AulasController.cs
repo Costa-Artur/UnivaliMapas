@@ -1,6 +1,8 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using UnivaliMapas.Api.Models;
+using UnivaliMapas.Features.Aulas.Commands.UpdateAula;
 using UnivaliMapas.Features.Aulas.Queries.GetAulaByProfessor;
 using UnivaliMapas.Features.Aulas.Queries.GetAulaByStudent;
 
@@ -52,5 +54,18 @@ public class AulasController : ControllerBase
         }
 
         return Ok(aulasToReturn);
+    }
+    
+    [HttpPut("{AulaId}")]
+    public async Task<ActionResult> UpdateAula(int salaId, AulaForUpdateDto aulaForUpdateDto)
+    {
+        var updateAulaCommand = new UpdateAulaCommand
+        {
+            SalaId = salaId, 
+            Dto = aulaForUpdateDto
+        };
+        var result = await  _mediator.Send(updateAulaCommand);
+
+        return result.Success ? NoContent() : NotFound();
     }
 }
