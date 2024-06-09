@@ -19,7 +19,7 @@ public class UpdateAulaCommandHandler : IRequestHandler<UpdateAulaCommand, Updat
     {
         bool success = false;
 
-        var aulaFromDatabase = await _repository.GetAulaByIdAsync(request., request.);
+        var aulaFromDatabase = await _repository.GetAulaByIdAsync(request.Dto.AulaId);
 
         if (aulaFromDatabase != null)
         {

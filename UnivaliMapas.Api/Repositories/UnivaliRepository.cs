@@ -88,14 +88,36 @@ public class UnivaliRepository : IUnivaliRepository
     {
         return await _context.Usuarios.ToListAsync();
     }
-    
-    public async Task<Aula?> GetAulaByIdAsync(int salaId, int aulaId) {
-        var salaFromDatabase = await GetSalaByIdAsync(salaId);
-        var aulaFromDatabase = salaFromDatabase
-            ?.Aulas
-            .FirstOrDefault(a => a.AulaId == aulaId);
 
-        return aulaFromDatabase;
+    public async Task<ICollection<Aula>?> GetAulasByStudentIdAsync(int studentId)
+    {
+        var aulas = await _context.Aulas
+            .Include(a => a.Materia)
+            .Include(a => a.Materia.Professor)
+            .Where(a => a.Materia.Alunos.Any(u => u.UserId == studentId))
+            .OrderBy(a => a.Data)
+            .ToListAsync();
+        
+        
+        if (aulas.Any())
+        {
+            foreach (var aula in aulas)
+            {
+                Console.WriteLine($"AulaId: {aula.AulaId}, Materia: {aula.Materia.Name}, Data: {aula.Data}");
+            }
+        }
+        else
+        {
+            Console.WriteLine("No aulas found for the given studentId.");
+        }
+
+        return aulas;
+    }
+    
+    public async Task<Aula?> GetAulaByIdAsync(int aulaId) {
+        return await _context.Aulas
+            .Include(a => a.Materia)
+            .FirstOrDefaultAsync(a => a.AulaId == aulaId);
     }
     
     public void AddAula(Aula aula) {
