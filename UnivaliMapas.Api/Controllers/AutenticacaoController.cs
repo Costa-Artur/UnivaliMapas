@@ -4,6 +4,9 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
+using UnivaliMapas.Api.Entities;
+using UnivaliMapas.Api.Extensions;
+using UnivaliMapas.Api.Repositories;
 
 namespace UnivaliMapas.Api.Controllers;
 
@@ -12,16 +15,18 @@ namespace UnivaliMapas.Api.Controllers;
 public class AutenticacaoController : ControllerBase
 {
     private readonly IConfiguration _configuration;
+    private readonly IUnivaliRepository _repository;
 
-    public AutenticacaoController(IConfiguration configuration)
+    public AutenticacaoController(IConfiguration configuration, IUnivaliRepository repository)
     {
         _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+        _repository = repository ?? throw new ArgumentNullException(nameof(repository));
     }
 
     [HttpPost("autenticar")]
-    public ActionResult<string> AutenticarComCodigoPessoa(AutenticacaoCodigoPessoaRequestDto autenticacaoRequestDto)
+    public async Task<ActionResult<string>> AutenticarComCodigoPessoa(AutenticacaoCodigoPessoaRequestDto autenticacaoRequestDto)
     {
-        var user = ValidateUserCredentialsFromCodigoPessoa(
+        var user = await ValidateUserCredentialsFromCodigoPessoa(
             autenticacaoRequestDto.CodigoPessoa!,
             autenticacaoRequestDto.Password!
         );
@@ -43,6 +48,7 @@ public class AutenticacaoController : ControllerBase
         var claims = new List<Claim>();
         claims.Add(new Claim("sub", user.UserId.ToString()));
         claims.Add(new Claim("given_name", user.Name));
+        claims.Add(new Claim("role", user.Role.ToString()));
 
         var jwt = new JwtSecurityToken(
             _configuration["Authentication:Issuer"],
@@ -58,13 +64,16 @@ public class AutenticacaoController : ControllerBase
         return Ok(jwtToReturn);
     }
 
-    private InfoUser? ValidateUserCredentialsFromCodigoPessoa(string codigoPessoa, string password)
+    private async Task<InfoUser?> ValidateUserCredentialsFromCodigoPessoa(string codigoPessoa, string password)
     {
-        var userFromDatabase = new Entities.Usuario();
+        var userFromDatabase = await _repository.GetUserByCodigoAsync(codigoPessoa);
 
-        if (userFromDatabase.CodigoPessoa == codigoPessoa && userFromDatabase.Password == password)
+        if (
+            userFromDatabase != null && 
+            userFromDatabase.CodigoPessoa == codigoPessoa && 
+            userFromDatabase.Password == PasswordHasherExtension.ComputeHash(password, "salt", "pepper", 10))
         {
-            return new InfoUser(userFromDatabase.UserId, userFromDatabase.Cpf, userFromDatabase.CodigoPessoa, userFromDatabase.Name);
+            return new InfoUser(userFromDatabase.UserId, userFromDatabase.Cpf, userFromDatabase.CodigoPessoa, userFromDatabase.Name, userFromDatabase.Role);
         }
 
         return null;
@@ -76,13 +85,16 @@ public class AutenticacaoController : ControllerBase
         public string Name { get; set; } = string.Empty;
         public string CodigoPessoa { get; set; } = string.Empty;
         public string Cpf { get; set; } = String.Empty;
+        
+        public UserRole Role { get; set; }
 
-        public InfoUser(int userId, string cpf, string codigoPessoa, string name)
+        public InfoUser(int userId, string cpf, string codigoPessoa, string name, UserRole role)
         {
             UserId = userId;
             Name = name;
             Cpf = cpf;
             CodigoPessoa = codigoPessoa;
+            Role = role;
         }
     }
 }

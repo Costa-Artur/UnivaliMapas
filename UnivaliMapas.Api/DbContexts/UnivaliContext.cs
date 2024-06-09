@@ -80,7 +80,8 @@ namespace UnivaliMapas.Api.DbContexts
                     UserId = 1,
                     Name = "Vinicius Setti",
                     Cpf = "000.000.000-00",
-                    CodigoPessoa = "7888888",
+                    CodigoPessoa = "11111111",
+                    Role = UserRole.Student,
                     Password = PasswordHasherExtension.ComputeHash("senha123", "salt", "pepper", 10)
                 },
                 new Usuario
@@ -88,7 +89,17 @@ namespace UnivaliMapas.Api.DbContexts
                     UserId = 2,
                     Name = "Alisson Pokrywiecki",
                     Cpf = "000.000.000-00",
-                    CodigoPessoa = "7888888",
+                    CodigoPessoa = "22222222",
+                    Role = UserRole.Student,
+                    Password = PasswordHasherExtension.ComputeHash("senha123", "salt", "pepper", 10),
+                },
+                new Usuario
+                {
+                    UserId = 3,
+                    Name = "Thiago Felski",
+                    Cpf = "000.000.000-00",
+                    CodigoPessoa = "33333333",
+                    Role = UserRole.Professor,
                     Password = PasswordHasherExtension.ComputeHash("senha123", "salt", "pepper", 10),
                 });
 
@@ -106,13 +117,13 @@ namespace UnivaliMapas.Api.DbContexts
                 {
                     MateriaId = 1,
                     Name = "Engenharia de Software",
-                    ProfessorId = 1
+                    ProfessorId = 3
                 },
                 new Materia()
                 {
                     MateriaId = 2,
                     Name = "Sistemas Operacionais",
-                    ProfessorId = 2
+                    ProfessorId = 3
                 });
 
             // AlunoMateria configuration

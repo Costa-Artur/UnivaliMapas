@@ -32,8 +32,4 @@
       </Content>
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Features\Usuarios\Queries\" />
-    </ItemGroup>
-
 </Project>

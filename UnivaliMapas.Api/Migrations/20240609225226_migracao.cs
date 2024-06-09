@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace UnivaliMapas.Migrations
 {
     /// <inheritdoc />
-    public partial class migrationcaraio : Migration
+    public partial class migracao : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -36,7 +36,8 @@ namespace UnivaliMapas.Migrations
                     Name = table.Column<string>(type: "text", nullable: false),
                     CodigoPessoa = table.Column<string>(type: "text", nullable: false),
                     Cpf = table.Column<string>(type: "text", nullable: false),
-                    Password = table.Column<string>(type: "text", nullable: false)
+                    Password = table.Column<string>(type: "text", nullable: false),
+                    Role = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -146,11 +147,12 @@ namespace UnivaliMapas.Migrations
 
             migrationBuilder.InsertData(
                 table: "Usuarios",
-                columns: new[] { "UserId", "CodigoPessoa", "Cpf", "Name", "Password" },
+                columns: new[] { "UserId", "CodigoPessoa", "Cpf", "Name", "Password", "Role" },
                 values: new object[,]
                 {
-                    { 1, "7888888", "000.000.000-00", "Vinicius Setti", "5phLUbbFkT1Kzcr0uGJgdCRUjWtXPqvQPIGjNkv17w0=" },
-                    { 2, "7888888", "000.000.000-00", "Alisson Pokrywiecki", "5phLUbbFkT1Kzcr0uGJgdCRUjWtXPqvQPIGjNkv17w0=" }
+                    { 1, "7888888", "000.000.000-00", "Vinicius Setti", "5phLUbbFkT1Kzcr0uGJgdCRUjWtXPqvQPIGjNkv17w0=", 0 },
+                    { 2, "7888888", "000.000.000-00", "Alisson Pokrywiecki", "5phLUbbFkT1Kzcr0uGJgdCRUjWtXPqvQPIGjNkv17w0=", 0 },
+                    { 3, "7888888", "000.000.000-00", "Thiago Felski", "5phLUbbFkT1Kzcr0uGJgdCRUjWtXPqvQPIGjNkv17w0=", 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -158,8 +160,8 @@ namespace UnivaliMapas.Migrations
                 columns: new[] { "MateriaId", "Name", "ProfessorId" },
                 values: new object[,]
                 {
-                    { 1, "Engenharia de Software", 1 },
-                    { 2, "Sistemas Operacionais", 2 }
+                    { 1, "Engenharia de Software", 3 },
+                    { 2, "Sistemas Operacionais", 3 }
                 });
 
             migrationBuilder.InsertData(
@@ -189,9 +191,9 @@ namespace UnivaliMapas.Migrations
                 columns: new[] { "AulaId", "Data", "MateriaId", "SalaId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 6, 9, 19, 30, 43, 602, DateTimeKind.Utc).AddTicks(767), 1, 1 },
-                    { 2, new DateTime(2024, 6, 10, 19, 30, 43, 602, DateTimeKind.Utc).AddTicks(769), 2, 5 },
-                    { 3, new DateTime(2024, 6, 11, 19, 30, 43, 602, DateTimeKind.Utc).AddTicks(776), 1, 3 }
+                    { 1, new DateTime(2024, 6, 9, 22, 52, 26, 333, DateTimeKind.Utc).AddTicks(6425), 1, 1 },
+                    { 2, new DateTime(2024, 6, 10, 22, 52, 26, 333, DateTimeKind.Utc).AddTicks(6428), 2, 5 },
+                    { 3, new DateTime(2024, 6, 11, 22, 52, 26, 333, DateTimeKind.Utc).AddTicks(6435), 1, 3 }
                 });
 
             migrationBuilder.CreateIndex(

@@ -12,8 +12,8 @@ using UnivaliMapas.Api.DbContexts;
 namespace UnivaliMapas.Migrations
 {
     [DbContext(typeof(UnivaliContext))]
-    [Migration("20240609193043_migrationcaraio")]
-    partial class migrationcaraio
+    [Migration("20240609225226_migracao")]
+    partial class migracao
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -81,21 +81,21 @@ namespace UnivaliMapas.Migrations
                         new
                         {
                             AulaId = 1,
-                            Data = new DateTime(2024, 6, 9, 19, 30, 43, 602, DateTimeKind.Utc).AddTicks(767),
+                            Data = new DateTime(2024, 6, 9, 22, 52, 26, 333, DateTimeKind.Utc).AddTicks(6425),
                             MateriaId = 1,
                             SalaId = 1
                         },
                         new
                         {
                             AulaId = 2,
-                            Data = new DateTime(2024, 6, 10, 19, 30, 43, 602, DateTimeKind.Utc).AddTicks(769),
+                            Data = new DateTime(2024, 6, 10, 22, 52, 26, 333, DateTimeKind.Utc).AddTicks(6428),
                             MateriaId = 2,
                             SalaId = 5
                         },
                         new
                         {
                             AulaId = 3,
-                            Data = new DateTime(2024, 6, 11, 19, 30, 43, 602, DateTimeKind.Utc).AddTicks(776),
+                            Data = new DateTime(2024, 6, 11, 22, 52, 26, 333, DateTimeKind.Utc).AddTicks(6435),
                             MateriaId = 1,
                             SalaId = 3
                         });
@@ -160,13 +160,13 @@ namespace UnivaliMapas.Migrations
                         {
                             MateriaId = 1,
                             Name = "Engenharia de Software",
-                            ProfessorId = 1
+                            ProfessorId = 3
                         },
                         new
                         {
                             MateriaId = 2,
                             Name = "Sistemas Operacionais",
-                            ProfessorId = 2
+                            ProfessorId = 3
                         });
                 });
 
@@ -253,6 +253,9 @@ namespace UnivaliMapas.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("Role")
+                        .HasColumnType("integer");
+
                     b.HasKey("UserId");
 
                     b.ToTable("Usuarios");
@@ -264,7 +267,8 @@ namespace UnivaliMapas.Migrations
                             CodigoPessoa = "7888888",
                             Cpf = "000.000.000-00",
                             Name = "Vinicius Setti",
-                            Password = "5phLUbbFkT1Kzcr0uGJgdCRUjWtXPqvQPIGjNkv17w0="
+                            Password = "5phLUbbFkT1Kzcr0uGJgdCRUjWtXPqvQPIGjNkv17w0=",
+                            Role = 0
                         },
                         new
                         {
@@ -272,7 +276,17 @@ namespace UnivaliMapas.Migrations
                             CodigoPessoa = "7888888",
                             Cpf = "000.000.000-00",
                             Name = "Alisson Pokrywiecki",
-                            Password = "5phLUbbFkT1Kzcr0uGJgdCRUjWtXPqvQPIGjNkv17w0="
+                            Password = "5phLUbbFkT1Kzcr0uGJgdCRUjWtXPqvQPIGjNkv17w0=",
+                            Role = 0
+                        },
+                        new
+                        {
+                            UserId = 3,
+                            CodigoPessoa = "7888888",
+                            Cpf = "000.000.000-00",
+                            Name = "Thiago Felski",
+                            Password = "5phLUbbFkT1Kzcr0uGJgdCRUjWtXPqvQPIGjNkv17w0=",
+                            Role = 1
                         });
                 });
 

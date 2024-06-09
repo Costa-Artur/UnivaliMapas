@@ -83,6 +83,11 @@ public class UnivaliRepository : IUnivaliRepository
     {
         return await _context.Usuarios.FirstOrDefaultAsync(u => u.UserId == userId);
     }
+    
+    public async Task<Usuario?> GetUserByCodigoAsync(string codigoPessoa)
+    {
+        return await _context.Usuarios.FirstOrDefaultAsync(u => u.CodigoPessoa == codigoPessoa);
+    }
 
     public async Task<ICollection<Usuario>?> GetUsersAsync()
     {
