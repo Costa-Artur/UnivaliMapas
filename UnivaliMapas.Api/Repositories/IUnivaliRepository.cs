@@ -20,4 +20,7 @@ public interface IUnivaliRepository
     void AddUser(Usuario user);
     Task<Usuario?> GetUserByIdAsync(int userId);
     Task<ICollection<Usuario>?> GetUsersAsync();
+    Task<Aula?> GetAulaByIdAsync(int salaId, int aulaId);
+    void AddAula (Aula aula);
+    void UpdateAula(Aula aula, AulaForUpdateDto aulaForUpdateDto);
 }

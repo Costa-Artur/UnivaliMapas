@@ -88,4 +88,21 @@ public class UnivaliRepository : IUnivaliRepository
     {
         return await _context.Usuarios.ToListAsync();
     }
+    
+    public async Task<Aula?> GetAulaByIdAsync(int salaId, int aulaId) {
+        var salaFromDatabase = await GetSalaByIdAsync(salaId);
+        var aulaFromDatabase = salaFromDatabase
+            ?.Aulas
+            .FirstOrDefault(a => a.AulaId == aulaId);
+
+        return aulaFromDatabase;
+    }
+    
+    public void AddAula(Aula aula) {
+        _context.Aulas.Add(aula);
+    }
+    
+    public void UpdateAula(Aula aula, AulaForUpdateDto aulaForUpdateDto) {
+        _mapper.Map(aulaForUpdateDto, aula);
+    }
 }

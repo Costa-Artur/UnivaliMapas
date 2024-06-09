@@ -15,20 +15,6 @@ public class UpdateSalaCommandHandler : IRequestHandler<UpdateSalaCommand, Updat
         _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
     }
 
-    /*public async Task<UpdateSalaCommandDto> Handle(UpdateSalaCommand request, CancellationToken cancellationToken)
-    {
-        var salaFromDatabase = await _salaRepository.GetSalaByIdAsync(request.SalaId);
-        if(salaFromDatabase == null)
-        {
-            return new UpdateSalaCommandDto {Success = false};
-        }
-        _mapper.Map(request, salaFromDatabase);
-
-        await _salaRepository.SaveChangesAsync();
-
-        return new UpdateSalaCommandDto {Success = true};
-    }*/
-
     public async Task<UpdateSalaCommandDto> Handle(UpdateSalaCommand request, CancellationToken cancellationToken)
     {
         bool success = false;
