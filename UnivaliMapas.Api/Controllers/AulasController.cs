@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using UnivaliMapas.Features.Aulas.Queries.GetAulaByProfessor;
 using UnivaliMapas.Features.Aulas.Queries.GetAulaByStudent;
 
 namespace UnivaliMapas.Api.Controllers;
@@ -16,7 +17,7 @@ public class AulasController : ControllerBase
         _mediator = mediator;
     }
     
-    [HttpGet ("{studentID}", Name = "GetAulaByStudent")]
+    [HttpGet ("student/{studentID}", Name = "GetAulaByStudent")]
     public async Task<ActionResult> GetAulaByStudent(int studentID)
     {
         var getAulaByStudentQuery = new GetAulaByStudentQuery { StudentID = studentID };
@@ -33,6 +34,23 @@ public class AulasController : ControllerBase
         }
 
         return Ok(aulasToReturn);
+    }
+    
+    [HttpGet ("professor/{professorID}", Name = "GetAulaByProfessor")]
+    public async Task<ActionResult> GetAulaByProfessor(int professorID)
+    {
+        var getAulaByProfessorQuery = new GetAulaByProfessorQuery { ProfessorID = professorID };
+        var aulasToReturn = await _mediator.Send(getAulaByProfessorQuery);
+        foreach (var getAulaByProfessorDto in aulasToReturn)
+        {
+            Console.WriteLine(getAulaByProfessorDto.Materia.Name + "CONTROLLER");
+        }
+        
+        if(aulasToReturn.IsNullOrEmpty())
+        {
+            return NotFound();
+        }
 
+        return Ok(aulasToReturn);
     }
 }

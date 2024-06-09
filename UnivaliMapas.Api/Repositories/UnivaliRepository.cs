@@ -93,27 +93,28 @@ public class UnivaliRepository : IUnivaliRepository
     {
         var aulas = await _context.Aulas
             .Include(a => a.Materia)
+            .Include(a => a.Sala)
+            .Include(a => a.Sala.Bloco)
             .Include(a => a.Materia.Professor)
             .Where(a => a.Materia.Alunos.Any(u => u.UserId == studentId))
             .OrderBy(a => a.Data)
             .ToListAsync();
-        
-        
-        if (aulas.Any())
-        {
-            foreach (var aula in aulas)
-            {
-                Console.WriteLine($"AulaId: {aula.AulaId}, Materia: {aula.Materia.Name}, Data: {aula.Data}");
-            }
-        }
-        else
-        {
-            Console.WriteLine("No aulas found for the given studentId.");
-        }
-
         return aulas;
     }
-    
+
+    public async Task<ICollection<Aula>?> GetAulasByProfessorIdAsync(int professorId)
+    {
+        var aulas = await _context.Aulas
+            .Include(a => a.Materia)
+            .Include(a => a.Sala)
+            .Include(a => a.Sala.Bloco)
+            .Include(a => a.Materia.Professor)
+            .Where(a => a.Materia.Professor.UserId == professorId)
+            .OrderBy(a => a.Data)
+            .ToListAsync();
+        return aulas;
+    }
+
     public async Task<Aula?> GetAulaByIdAsync(int aulaId) {
         return await _context.Aulas
             .Include(a => a.Materia)

@@ -21,6 +21,7 @@ public interface IUnivaliRepository
     Task<Usuario?> GetUserByIdAsync(int userId);
     Task<ICollection<Usuario>?> GetUsersAsync();
     Task<ICollection<Aula>?> GetAulasByStudentIdAsync(int studentId);
+    Task<ICollection<Aula>?> GetAulasByProfessorIdAsync(int professorId);
     void AddAula (Aula aula);
     void UpdateAula(Aula aula, AulaForUpdateDto aulaForUpdateDto);
     Task<Aula?> GetAulaByIdAsync(int aulaId);
