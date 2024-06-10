@@ -36,10 +36,10 @@ public class BlocosController : ControllerBase
         return blocoToReturn != null ? Ok(blocoToReturn) : NotFound();
     }
     
-    [HttpGet("com-sala/{blocoID}", Name = "GetBlocosWithSalaById")]
-    public async Task<ActionResult <GetBlocoWithSalaDetailDto>> GetBlocoWithSalaById(int blocoID) 
+    [HttpGet("com-sala", Name = "GetBlocosWithSalaById")]
+    public async Task<ActionResult <GetBlocoWithSalaDetailDto>> GetBlocoWithSalaById() 
     {
-        var getBlocoDetailQuery = new GetBlocoWithSalaDetailQuery { BlocoID = blocoID };
+        var getBlocoDetailQuery = new GetBlocoWithSalaDetailQuery {};
         var blocoToReturn = await _mediator.Send(getBlocoDetailQuery);
 
         return blocoToReturn != null ? Ok(blocoToReturn) : NotFound();

@@ -12,7 +12,7 @@ public interface IUnivaliRepository
     Task<bool> SaveChangesAsync();
     void UpdateSala(Sala sala, SalaForUpdateDto salaForUpdateDto);
     Task<Bloco?> GetBlocoByIdAsync(int blocoId);
-    Task<Bloco?> GetBlocoWithSalaByIdAsync(int blocoId);
+    Task<IEnumerable<Bloco>?> GetBlocosWithSalasByIdAsync();
     void AddBloco (Bloco bloco);
     void DeleteBloco(Bloco bloco);
     void UpdateBloco(Bloco bloco, BlocoForUpdateDto blocoForUpdate);

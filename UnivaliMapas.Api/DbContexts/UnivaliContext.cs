@@ -133,7 +133,7 @@ namespace UnivaliMapas.Api.DbContexts
 
             alunoMateria.HasData(
                 new AlunoMateria { UserId = 1, MateriaId = 1 },
-                new AlunoMateria { UserId = 2, MateriaId = 1 });
+                new AlunoMateria { UserId = 2, MateriaId = 2 });
 
             // Aula configuration
             var aulas = modelBuilder.Entity<Aula>();
@@ -172,6 +172,13 @@ namespace UnivaliMapas.Api.DbContexts
                     Data = DateTime.UtcNow.AddDays(2),  // Ensure this is in UTC
                     MateriaId = 1,
                     SalaId = 3
+                },
+                new Aula
+                {
+                    AulaId = 4,
+                    Data = DateTime.UtcNow.AddDays(3),  // Ensure this is in UTC
+                    MateriaId = 2,
+                    SalaId = 6
                 });
 
 

@@ -3,10 +3,12 @@ using UnivaliMapas.Api.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using MediatR;
 using Microsoft.IdentityModel.Tokens;
 using UnivaliMapas.Api.Entities;
 using UnivaliMapas.Api.Extensions;
 using UnivaliMapas.Api.Repositories;
+using UnivaliMapas.Features.Usuarios.Queries.GetUsersDetail;
 
 namespace UnivaliMapas.Api.Controllers;
 
@@ -16,11 +18,26 @@ public class AutenticacaoController : ControllerBase
 {
     private readonly IConfiguration _configuration;
     private readonly IUnivaliRepository _repository;
-
-    public AutenticacaoController(IConfiguration configuration, IUnivaliRepository repository)
+    private readonly IMediator _mediator;
+    public AutenticacaoController(IConfiguration configuration, IUnivaliRepository repository, IMediator mediator)
     {
         _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+        _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+    }
+    
+    [HttpGet("user-info/{codigoPessoa}")]
+    public async Task<ActionResult<GetUserDetailDto>> GetUserInfo(string codigoPessoa)
+    {
+        var getUserDetailQuery = new GetUserDetailQuery { CodigoPessoa = codigoPessoa };
+        var userToReturn = await _mediator.Send(getUserDetailQuery);
+
+        if (userToReturn != null)
+        {
+            return Ok(userToReturn);
+        }
+
+        return NotFound();
     }
 
     [HttpPost("autenticar")]
@@ -61,7 +78,7 @@ public class AutenticacaoController : ControllerBase
         );
 
         var jwtToReturn = new JwtSecurityTokenHandler().WriteToken(jwt);
-        return Ok(jwtToReturn);
+        return Ok(new { token = jwtToReturn });
     }
 
     private async Task<InfoUser?> ValidateUserCredentialsFromCodigoPessoa(string codigoPessoa, string password)

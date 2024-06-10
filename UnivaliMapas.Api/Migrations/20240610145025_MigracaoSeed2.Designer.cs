@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using UnivaliMapas.Api.DbContexts;
@@ -11,9 +12,11 @@ using UnivaliMapas.Api.DbContexts;
 namespace UnivaliMapas.Migrations
 {
     [DbContext(typeof(UnivaliContext))]
-    partial class UnivaliContextModelSnapshot : ModelSnapshot
+    [Migration("20240610145025_MigracaoSeed2")]
+    partial class MigracaoSeed2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

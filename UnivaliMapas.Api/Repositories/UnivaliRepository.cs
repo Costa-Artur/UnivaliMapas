@@ -22,8 +22,9 @@ public class UnivaliRepository : IUnivaliRepository
     
     public async Task<Sala?> GetSalaByIdAsync(int blocoId, int salaId)
     {
-        var blocoFromDatabase = await GetBlocoWithSalaByIdAsync(blocoId);
-        var salaFromDatabase = blocoFromDatabase
+        var blocosFromDatabase = await GetBlocosWithSalasByIdAsync();
+        var bloco = blocosFromDatabase.FirstOrDefault(b => b.BlocoID == blocoId);
+        var salaFromDatabase = bloco
             ?.Salas
             .FirstOrDefault(s => s.SalaId == salaId);
 
@@ -54,10 +55,10 @@ public class UnivaliRepository : IUnivaliRepository
             .FirstOrDefaultAsync(b => b.BlocoID == blocoId);
     }
 
-    public async Task<Bloco?> GetBlocoWithSalaByIdAsync(int blocoId) {
+    public async Task<IEnumerable<Bloco>?> GetBlocosWithSalasByIdAsync() {
         return await _context.Blocos
             .Include(b => b.Salas)
-            .FirstOrDefaultAsync(b => b.BlocoID == blocoId);
+            .ToListAsync();
     }
     
     public void AddBloco(Bloco bloco) {

@@ -4,7 +4,7 @@ using UnivaliMapas.Api.Repositories;
 
 namespace UnivaliMapas.Features.Blocos.Queries.GetBloco;
 
-public class GetBlocoWithSalaDetailQueryHandler : IRequestHandler<GetBlocoWithSalaDetailQuery, GetBlocoWithSalaDetailDto>
+public class GetBlocoWithSalaDetailQueryHandler : IRequestHandler<GetBlocoWithSalaDetailQuery, IEnumerable<GetBlocoWithSalaDetailDto>>
 {
     private readonly IUnivaliRepository _blocoRepository;
     private readonly IMapper _mapper;
@@ -15,9 +15,9 @@ public class GetBlocoWithSalaDetailQueryHandler : IRequestHandler<GetBlocoWithSa
         _blocoRepository = repository;
     }
 
-    public async Task<GetBlocoWithSalaDetailDto> Handle(GetBlocoWithSalaDetailQuery request, CancellationToken cancellationToken)
+    public async Task<IEnumerable<GetBlocoWithSalaDetailDto>> Handle(GetBlocoWithSalaDetailQuery request, CancellationToken cancellationToken)
     {
-        var blocoFromDatabase = await _blocoRepository.GetBlocoWithSalaByIdAsync(request.BlocoID);
-        return _mapper.Map<GetBlocoWithSalaDetailDto>(blocoFromDatabase);
+        var blocoFromDatabase = await _blocoRepository.GetBlocosWithSalasByIdAsync();
+        return _mapper.Map<IEnumerable<GetBlocoWithSalaDetailDto>>(blocoFromDatabase);
     }
 }

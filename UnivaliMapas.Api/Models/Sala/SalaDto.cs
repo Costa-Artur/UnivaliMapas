@@ -2,6 +2,6 @@
 
 public class SalaDto
 {
-    public int Id { get; set; }
+    public int SalaId { get; set; }
     public int Number { get; set; }
 }

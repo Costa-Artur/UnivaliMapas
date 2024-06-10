@@ -57,11 +57,10 @@ public class AulasController : ControllerBase
     }
     
     [HttpPut("{AulaId}")]
-    public async Task<ActionResult> UpdateAula(int salaId, AulaForUpdateDto aulaForUpdateDto)
+    public async Task<ActionResult> UpdateAula(AulaForUpdateDto aulaForUpdateDto)
     {
         var updateAulaCommand = new UpdateAulaCommand
         {
-            SalaId = salaId, 
             Dto = aulaForUpdateDto
         };
         var result = await  _mediator.Send(updateAulaCommand);
